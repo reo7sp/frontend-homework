@@ -1,35 +1,31 @@
 'use strict';
 
 const letters = function (str, leaveFirstRepeatedChar) {
-    let counter = {};
-    for (let i = 0; i < str.length; i++) {
-        let char = str[i];
-        let counterKey = char;
+    const strArray = Array.from(str);
 
-        if (!counter.hasOwnProperty(counterKey)) {
-            counter[counterKey] = 0;
+    const counter = strArray.reduce((output, char) => {
+        if (!output.hasOwnProperty(char)) {
+            output[char] = 0;
         }
-        counter[counterKey] += 1;
-    }
+        output[char] += 1;
+        return output;
+    }, {});
 
-    let newStrArray = [];
-    for (let i = 0; i < str.length; i++) {
-        let char = str[i];
-        let counterKey = char;
-
-        if (counter[counterKey] === null) {
-            // ignore
-        } else if (counter[counterKey] === 1) {
-            newStrArray.push(char);
-        } else {
+    const newStrArray = strArray.reduce((output, char) => {
+        if (counter[char] === 1) {
+            output.push(char);
+        } else if (counter[char] > 1) {
             if (leaveFirstRepeatedChar === true) {
-                newStrArray.push(char);
-                counter[counterKey] = null;
+                output.push(char);
+                counter[char] = 0;
             } else if (leaveFirstRepeatedChar === false) {
-                counter[counterKey] -= 1;
+                counter[char] -= 1;
             }
         }
-    }
+        return output;
+    }, []);
 
-    return newStrArray.join('');
+    const newStr = newStrArray.join('');
+
+    return newStr;
 }
