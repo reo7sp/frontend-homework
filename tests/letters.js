@@ -53,4 +53,16 @@ QUnit.module('Тестируем функцию letters', function () {
 		assert.strictEqual(letters('от топота копыт', false), 'а копыт');
 		assert.strictEqual(letters('hello world', false), 'he world');
 	});
+
+	QUnit.test('Оставляет первую букву в первом слове, остальные удаляет. И пробелы все убирает, кроме первого', function (assert) {
+		assert.strictEqual(letters('раз два три', true), 'раз двти');
+		assert.strictEqual(letters('четыре пять', true), 'четыр пяь');
+		assert.strictEqual(letters('зайчик вышел погулять', true), 'зайчик вышелпогуять');
+	});
+
+	QUnit.test('Оставляет последнюю букву последнем слове, остальные удаляет. И пробелы все убирает, кроме последнего', function (assert) {
+		assert.strictEqual(letters('раз два три', false), 'здва три');
+		assert.strictEqual(letters('четыре пять', false), 'чыре пять');
+		assert.strictEqual(letters('зайчик вышел погулять', false), 'зайчиквыше погулять');
+	});
 });
