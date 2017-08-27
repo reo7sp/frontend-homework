@@ -14,7 +14,9 @@ const letters = function (str, leaveFirstRepeatedChar) {
     const newStrArray = strArray.reduce((output, char) => {
         if (counter[char] === 1) {
             output.push(char);
-        } else if (counter[char] > 1) {
+            return output;
+        }
+        if (counter[char] > 1) {
             if (leaveFirstRepeatedChar === true) {
                 output.push(char);
                 counter[char] = 0;
